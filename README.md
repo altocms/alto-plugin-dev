@@ -1,2 +1,1 @@
-# alto-plugin-dev
-Alto CMS plugin for developers
+# Alto CMS plugin for developers
