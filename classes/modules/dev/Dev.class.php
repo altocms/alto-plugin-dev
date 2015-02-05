@@ -15,34 +15,44 @@ class PluginDev_ModuleDev extends Module {
         $this->sPostfixText = PHP_EOL . '// EOF';
     }
 
+    /**
+     * Generates aliases files during shutdown
+     */
     public function Shutdown() {
 
         if (C::Get('plugin.dev.class_aliases.generate')) {
             $sDir = C::Get('plugin.dev.class_aliases.dir');
-            if (F::File_CheckDir($sDir)) {
-                $aAliases = Loader::GetAliases();
-                $aAliasDefines = array();
-                foreach($aAliases as $sAlias => $aInfo) {
-                    $aAliasDefines[] = PHP_EOL
-                        . $this->_getClassDocs($sAlias)
-                        . "class $sAlias extends {$aInfo['original']} { };";
-                }
-                $sAliasText = $this->sPrefixText . join(PHP_EOL, $aAliasDefines) . PHP_EOL . $this->sPostfixText;
-                F::File_PutContents($sDir . 'Aliases.php', $sAliasText);
+            $sFileName = $sDir . C::Val('plugin.dev.class_aliases.filename', 'Aliases.php');
+            if (!is_file($sFileName) || C::Get('plugin.dev.class_aliases.force')) {
+                if (F::File_CheckDir($sDir)) {
+                    $aAliases = Loader::GetAliases();
+                    $aAliasDefines = array();
+                    foreach($aAliases as $sAlias => $aInfo) {
+                        $aAliasDefines[] = PHP_EOL
+                            . $this->_getClassDocs($sAlias)
+                            . "class $sAlias extends {$aInfo['original']} { };";
+                    }
+                    $sAliasText = $this->sPrefixText . join(PHP_EOL, $aAliasDefines) . PHP_EOL . $this->sPostfixText;
+                    F::File_PutContents($sFileName, $sAliasText);
 
-                $this->_createFunc($sDir);
+                    $this->_createFunc($sDir);
+                }
             }
         }
     }
 
+    /**
+     * Create PhpDocs for class Func
+     *
+     * @param string $sDir
+     */
     protected function _createFunc($sDir) {
 
         $sFile = $sDir . 'F.php';
-        $bCreate = false;
-        if ($bCreate || !is_file($sFile)) {
+        if (!is_file($sFile) || C::Get('plugin.dev.class_aliases.force')) {
             $sText = $this->sPrefixText;
             $sText .= '/**' . PHP_EOL;
-            $sText .= $this->_getMethodsDocsFunc('', 'F');
+            //$sText .= $this->_getMethodsDocsFunc('', 'F');
             $aExtensions = Func::_getExtensions();
             if (isset($aExtensions['Main'])) {
                 $sText .= $this->_getMethodsDocsFunc('', $aExtensions['Main']);
@@ -101,6 +111,13 @@ class PluginDev_ModuleDev extends Module {
         return $sText;
     }
 
+    /**
+     * Create PgpDocs for the class
+     *
+     * @param string $sClassName
+     *
+     * @return string
+     */
     protected function _getClassDocs($sClassName) {
 
         $sText = '/**' . PHP_EOL
@@ -114,7 +131,7 @@ class PluginDev_ModuleDev extends Module {
 
         $sResult = '';
         if ($sClassName == 'E') {
-            $aModules = E::getInstance()->GetLoadedModules();
+            $aModules = $this->_getLoadedModules();
             if ($aModules) {
                 $aModules = array_keys($aModules);
             }
@@ -137,9 +154,9 @@ class PluginDev_ModuleDev extends Module {
         return $sResult;
     }
 
-    protected function _getModules() {
+    protected function _getLoadedModules() {
 
-        $aModules = E::getInstance()->GetLoadedModules();
+        return E::getInstance()->GetLoadedModules();
     }
 }
 

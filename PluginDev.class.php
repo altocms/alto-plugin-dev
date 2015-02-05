@@ -35,6 +35,7 @@ class PluginDev extends Plugin {
      */
     public function Init() {
 
+        return true;
     }
 }
 

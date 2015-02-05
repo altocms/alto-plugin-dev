@@ -12,7 +12,7 @@
     <dirname>dev</dirname>
     <requires>
         <alto>
-            <version>1.0</version>
+            <version>1.0.2</version>
         </alto>
         <system>
             <php>5.3.0</php>
