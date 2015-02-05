@@ -2,7 +2,7 @@
 <plugin>
     <id>dev</id>
     <name>
-        <lang name="default">dev</lang>
+        <lang name="default">Alto CMS plugin for developers</lang>
     </name>
     <author>
         <lang name="default">Alto CMS Team</lang>
