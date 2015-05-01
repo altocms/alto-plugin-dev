@@ -4,12 +4,13 @@ class PluginDev_ModuleViewer extends PluginDev_Inherits_ModuleViewer {
     const TEMPLATE_MARK_BEGIN = 'TEMPLATE BEGIN';
     const TEMPLATE_MARK_END = 'TEMPLATE END';
 
-    protected function _initTemplator() {
+    protected function _tplInit() {
 
-        parent::_initTemplator();
+        parent::_tplInit();
 
         $this->oSmarty->registerFilter('pre', array($this, '_Prefilters'));
         $this->oSmarty->registerFilter('post', array($this, '_Postfilters'));
+        $this->oSmarty->registerPlugin('modifier', 'value', 'PluginDev_ModuleDev::Value');
     }
 
     public function _Prefilters($sSource, Smarty_Internal_Template $oTemplate) {

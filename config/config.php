@@ -6,6 +6,10 @@ $config['$root$']['module']['_autoLoad_'] = array(
     'Dev',
 );
 
+$config['$root$']['classes']['namespace'] = array(
+    'Whoops' => '___path.dir.plugin.dev___vendor/whoops-1.1.5/src/Whoops',
+);
+
 /*
  * CONFIG OPTION
  */

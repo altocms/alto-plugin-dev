@@ -1,0 +1,72 @@
+.dev-config-root {
+  list-style: none;
+  position: relative;
+}
+.dev-config-list {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.dev-config-item {
+  margin: 0;
+  vertical-align: top;
+  border-top: 1px solid #DDDDDD;
+}
+.dev-config-key {
+  display: inline-block;
+  vertical-align: top;
+}
+.dev-config-value {
+  display: inline-block;
+  vertical-align: top;
+  background: #ffffff;
+  padding: 2px 4px;
+  border: 1px solid #cccccc;
+  margin: 2px 0 2px 10px;
+}
+.dev-config-parent {
+  color: #777777;
+}
+.dev-config-value_number {
+  color: #990000;
+}
+.dev-config-value_string {
+  color: #006600;
+}
+.dev-config-value_string::before {
+  content: "\"";
+}
+.dev-config-value_string::after {
+  content: "\"";
+}
+.dev-config-value_bool {
+  color: #000099;
+}
+.dev-config-value_object {
+  color: #666666;
+}
+.dev-config-value_array .dev-config-value {
+  border-width: 0 0 1px 0;
+  margin: 0;
+}
+.dev-config-level-1 .dev-config-key {
+  margin-left: 20px;
+  min-width: 380px;
+}
+.dev-config-level-2 .dev-config-key {
+  margin-left: 40px;
+  min-width: 360px;
+}
+.dev-config-level-3 .dev-config-key {
+  margin-left: 60px;
+  min-width: 340px;
+}
+.dev-config-level-4 .dev-config-key {
+  margin-left: 80px;
+  min-width: 320px;
+}
+.dev-config-level-5 .dev-config-key {
+  margin-left: 100px;
+  min-width: 300px;
+}

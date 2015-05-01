@@ -158,6 +158,30 @@ class PluginDev_ModuleDev extends Module {
 
         return E::getInstance()->GetLoadedModules();
     }
+
+    static public function Value($xVal) {
+
+        $sType  = strtolower(gettype($xVal));
+        if ($sType == 'unknown type') {
+            $sType = 'unknown';
+        }
+        $sResult = '';
+        //$sResult .= '<span class="value-type-' . $sType . '">';
+        if (is_null($xVal)) {
+            $sResult .= 'NULL';
+        } elseif (is_bool($xVal)) {
+            $sResult .= ($xVal ? 'TRUE' : 'FALSE');
+        } elseif (is_array($xVal)) {
+            $sResult .= 'Array';
+        } elseif (is_object($xVal)) {
+            $sResult .= 'Object';
+        } else {
+            $sResult .= $xVal;
+        }
+        //$sResult .= '</span>';
+
+        return $sResult;
+    }
 }
 
 // EOF
