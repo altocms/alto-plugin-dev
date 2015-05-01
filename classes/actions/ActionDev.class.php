@@ -49,36 +49,9 @@ class PluginDev_ActionDev extends ActionPlugin {
 
     public function EventConfig() {
 
-//var_dump(Config::Get('', null, null, true)); exit;
-        $sStorageKey = Config::DEFAULT_CONFIG_ROOT .  '.__[' . Config::LEVEL_CUSTOM . ']__';
-        //$aConfig = Config::getInstance()->GetStorageStr($sStorageKey);
         $aConfig = C::Get(null, null, Config::LEVEL_CUSTOM, true);
         E::ModuleViewer()->Assign('aConfig', $aConfig);
 
-        /*
-        $aViewConfig = array();
-        $sSkipPrefix = '';
-        foreach($aConfig as $sKey => $xVal) {
-            if (strpos($sKey, '.') === false) {
-                $aViewConfig[$sKey] = $xVal;
-            } else {
-                list($sSuperKey, $sSubKey) = explode('.', $sKey, 2);
-                if ($sSkipPrefix && strpos($sKey, $sSkipPrefix) === 0) {
-                    continue;
-                }
-                if (substr($sKey, -2) == '.0') {
-                    list($sKey, $xVal) = $this->_prepareArray($aConfig, $sKey, substr($sKey, 0, strlen($sKey) - 2));
-                    list($sSuperKey, $sSubKey) = explode('.', $sKey, 2);
-                    $aViewConfig[$sSuperKey][$sSubKey] = $xVal;
-                    $sSkipPrefix = $sKey;
-                } else {
-                    $aViewConfig[$sSuperKey][$sSubKey] = $xVal;
-                }
-            }
-        }
-
-        E::ModuleViewer()->Assign('aConfig', $aViewConfig);
-        */
         E::ModuleViewer()->AppendStyle(Plugin::GetTemplateDir(__CLASS__) . 'assets/css/style.config.css');
     }
 
