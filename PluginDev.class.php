@@ -35,10 +35,33 @@ class PluginDev extends Plugin {
      */
     public function Init() {
 
-        if (C::Get('plugin.dev.errors.whoops')) {
-            $whoops = new \Whoops\Run;
-            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-            $whoops->register();
+        if (!F::AjaxRequest() && !in_array(R::GetAction(), array('ajax', 'api'))) {
+            if (C::Get('plugin.dev.handlers.whoops.enable')) {
+                $bDisable = false;
+                if (C::Get('plugin.dev.handlers.whoops.disable.ajax') && F::AjaxRequest()) {
+                    $bDisable = true;
+                } elseif ($aDisabledAction = C::Get('plugin.dev.handlers.whoops.disable.action')) {
+                    $aDisabledAction = F::Array_Str2Array($aDisabledAction);
+                    if (in_array(R::GetAction(), $aDisabledAction)) {
+                        $bDisable = true;
+                    }
+                }
+                if (!$bDisable) {
+                    $oWhoops = new \Whoops\Run;
+                    $oWhoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+                    $oWhoops->register();
+                }
+            }
+
+            if (C::Get('plugin.dev.handlers.debugbar.enable')) {
+                $aAssets = E::ModuleDev()->GetDebugAssets();
+                foreach($aAssets['js'] as $sJsFile) {
+                    E::ModuleViewer()->AppendScript($sJsFile, array('merge' => false));
+                }
+                foreach($aAssets['css'] as $sCssFile) {
+                    E::ModuleViewer()->AppendStyle($sCssFile, array('merge' => false));
+                }
+            }
         }
 
         return true;

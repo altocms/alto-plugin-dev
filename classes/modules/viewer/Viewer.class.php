@@ -4,6 +4,8 @@ class PluginDev_ModuleViewer extends PluginDev_Inherits_ModuleViewer {
     const TEMPLATE_MARK_BEGIN = 'TEMPLATE BEGIN';
     const TEMPLATE_MARK_END = 'TEMPLATE END';
 
+    protected $bIsHtml;
+
     protected function _tplInit() {
 
         parent::_tplInit();
@@ -29,7 +31,24 @@ class PluginDev_ModuleViewer extends PluginDev_Inherits_ModuleViewer {
         return $sSource;
     }
 
+    public function _isHtml() {
+
+        if (is_null($this->bIsHtml)) {
+            $sContentType = E::ModuleViewer()->GetContentType();
+            if ($sContentType) {
+                $this->bIsHtml = ($sContentType == 'text/html');
+            } else {
+                $this->bIsHtml = true;
+            }
+        }
+        return $this->bIsHtml;
+    }
+
     public function _filter_mark_templates($sSource, Smarty_Internal_Template $oTemplate) {
+
+        if (!$this->_isHtml()) {
+            return $sSource;
+        }
 
         $sTemplateFile = F::File_LocalDir($oTemplate->smarty->_current_file);
         if ($sTemplateFile) {
@@ -38,14 +57,14 @@ class PluginDev_ModuleViewer extends PluginDev_Inherits_ModuleViewer {
             $sTemplateFile = $oTemplate->smarty->_current_file;
         }
 
-        $nLevel = intval(E::Cache_Get('smarty.options.mark_template_lvl', 'tmp'));
+        $nLevel = intval(E::ModuleCache()->Get('smarty.options.mark_template_lvl', 'tmp'));
 
         $sSource = ($nLevel ? "\n\n" : "")
             . '<!-- ' . self::TEMPLATE_MARK_BEGIN . ' [lvl:' . $nLevel . ', tpl:' . $sTemplateFile . '] -->' . ($nLevel ? "\n" : "")
             . $sSource . ($nLevel ? "\n" : "")
             . '<!-- ' . self::TEMPLATE_MARK_END . ' [lvl:' . $nLevel . ', tpl:' . $sTemplateFile . '] -->' . ($nLevel ? "\n" : "");
 
-        E::Cache_Set('smarty.options.mark_template_lvl', ++$nLevel, array(), 0, 'tmp');
+        E::ModuleCache()->Set('smarty.options.mark_template_lvl', ++$nLevel, array(), 0, 'tmp');
         return $sSource;
     }
 

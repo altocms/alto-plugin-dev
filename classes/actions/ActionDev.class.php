@@ -9,6 +9,7 @@ class PluginDev_ActionDev extends ActionPlugin {
     public function RegisterEvent() {
 
         $this->AddEvent('config', 'EventConfig');
+        $this->AddEvent('error', 'EventError');
         //$this->AddEvent('sql', 'EventSql');
     }
 
@@ -22,6 +23,14 @@ class PluginDev_ActionDev extends ActionPlugin {
 
     public function EventIndex() {
 
+    }
+
+    public function EventError() {
+
+        // This is a test of error handler
+        if ($bUnkownError) {
+            echo 'test';
+        }
     }
 
     protected function _prepareArray($aConfig, $sKey, $sPrefix) {
