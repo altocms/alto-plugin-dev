@@ -2,7 +2,7 @@
 <plugin>
     <id>dev</id>
     <name>
-        <lang name="default">Alto CMS plugin for developers</lang>
+        <lang name="default">Plugin for developers</lang>
     </name>
     <author>
         <lang name="default">Alto CMS Team</lang>
@@ -12,13 +12,13 @@
     <dirname>dev</dirname>
     <requires>
         <alto>
-            <version>1.1.7</version>
+            <version>1.1.17</version>
         </alto>
         <system>
             <php>5.3.0</php>
         </system>
     </requires>
     <description>
-        <lang name="default">dev</lang>
+        <lang name="default">Plugin for developers</lang>
     </description>
 </plugin>
