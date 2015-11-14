@@ -1,4 +1,16 @@
 <?php
+/*---------------------------------------------------------------------------
+ * @Project: Alto CMS
+ * @Project URI: http://altocms.com
+ * @Description: Advanced Community Engine
+ * @Copyright: Alto CMS Team
+ * @License: GNU GPL v2 & MIT
+ *----------------------------------------------------------------------------
+ */
+
+/**
+ * @package plugins.dev
+ */
 class PluginDev_ModuleViewer extends PluginDev_Inherits_ModuleViewer {
 
     const TEMPLATE_MARK_BEGIN = 'TEMPLATE BEGIN';

@@ -8,6 +8,9 @@
  *----------------------------------------------------------------------------
  */
 
+/**
+ * @package plugins.dev
+ */
 class PluginDev extends Plugin {
 
     protected $aDelegates = array(
