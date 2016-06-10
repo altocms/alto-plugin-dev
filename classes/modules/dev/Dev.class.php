@@ -85,7 +85,7 @@ class PluginDev_ModuleDev extends Module {
             if (!is_file($sFileName) || C::Get('plugin.dev.class_aliases.force')) {
                 if (F::File_CheckDir($sDir)) {
                     $this->_remakePluginAliases();
-                    $aAliases = Loader::GetAliases();
+                    $aAliases = $this->_getAliases();
                     $aAliasDefines = array();
                     foreach($aAliases as $sAlias => $aInfo) {
                         $aAliasDefines[] = PHP_EOL
@@ -101,6 +101,17 @@ class PluginDev_ModuleDev extends Module {
         }
     }
 
+    /**
+     * @return array
+     */
+    protected function _getAliases() {
+
+        return Loader::GetAliases();
+    }
+
+    /**
+     *
+     */
     protected function _remakePluginAliases() {
 
         $aDelegates = E::ModulePlugin()->GetDelegations();

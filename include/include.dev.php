@@ -14,4 +14,6 @@
 F::IncludeFile(C::Get('path.dir.engine') . '/classes/core/Application.class.php');
 F::IncludeFile('../classes/core/DevRouter.class.php');
 
+C::Set('module._autoLoad_', array_merge((array)C::Get('module._autoLoad_'), ['Dev']));
+
 // EOF

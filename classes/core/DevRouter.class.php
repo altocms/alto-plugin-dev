@@ -102,6 +102,10 @@ class DevRouter extends Router {
         );
     }
 
+    /**
+     * @param $sText
+     * @param null $aOptions
+     */
     protected function _addLogBegin($sText, $aOptions = null) {
 
         $this->_addLog('[begin] ' . $sText, $aOptions);
@@ -140,11 +144,17 @@ class DevRouter extends Router {
         return $sResult;
     }
 
+    /**
+     * 
+     */
     public function Exec() {
 
         parent::Exec();
     }
 
+    /**
+     * @throws Exception
+     */
     public function ExecAction() {
 
         $this->_addLogBegin('ExecAction()');
@@ -152,6 +162,9 @@ class DevRouter extends Router {
         $this->_addLogEnd('ExecAction()');
     }
 
+    /**
+     * 
+     */
     protected function ParseUrl() {
 
         $this->_addLogBegin('ParseUrl()');
@@ -159,6 +172,9 @@ class DevRouter extends Router {
         $this->_addLogEnd('ParseUrl()', array('vars' => array('$this->aCurrentUrl' => $this->_var($this->aCurrentUrl))));
     }
 
+    /**
+     * @return string
+     */
     protected function GetRequestUri() {
 
         $sReq = parent::GetRequestUri();
@@ -166,6 +182,9 @@ class DevRouter extends Router {
         return $sReq;
     }
 
+    /**
+     * @return string
+     */
     protected function DefineActionClass() {
 
         $this->_addLogBegin('DefineActionClass()');
@@ -174,6 +193,9 @@ class DevRouter extends Router {
         return $sActionClass;
     }
 
+    /**
+     * @return null|string
+     */
     protected function FindActionClass() {
 
         $this->_addLogBegin('FindActionClass()');
@@ -182,6 +204,11 @@ class DevRouter extends Router {
         return $sActionClass;
     }
 
+    /**
+     * @param string $sAction
+     * @param null $sEvent
+     * @return null|string
+     */
     protected function DetermineClass($sAction, $sEvent = null) {
 
         $this->_addLogBegin('DetermineClass(' . $this->_var($sAction) . ')');
